@@ -31,8 +31,8 @@ pipeline {
         
         stage('Run the tests') {
             steps {
-                bat 'dotnet test SeleniumIde.sln --logger "trx; LogFileName=TestResults.trx"'
-                bat 'dir /s /b **\\TestResults\\*.trx'  // Debugging: check if the trx file exists
+                bat 'dotnet test SeleniumIde.sln --logger "trx;LogFileName=TestResults.trx"'
+                bat 'dir /s /b *.trx'
             }
         }
     }
