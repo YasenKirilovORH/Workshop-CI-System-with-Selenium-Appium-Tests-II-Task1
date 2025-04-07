@@ -8,14 +8,15 @@ pipeline{
 			}
 		}
 		
-		stage('Set up .NET Core'){
-			steps{
-				bat '''
-				echo Installing .NET SDK 6.0
-				choco install dotnet-sdk -y --version=6.0.100
+		stage('Set up .NET Core') {
+			steps {
+				powershell '''
+				[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+				Invoke-WebRequest -Uri "https://download.visualstudio.microsoft.com/download/pr/3c1d94f2-6a12-462a-9f4b-4c39f9a0d21d/90b1976ae74d58968d8c369cdb8f8575/dotnet-sdk-6.0.136-win-x64.exe" -OutFile "dotnet-sdk.exe"
+				Start-Process -FilePath ".\\dotnet-sdk.exe" -ArgumentList "/quiet", "/norestart" -Wait
 				'''
-			}
-		}
+    }
+}
 		
 		stage('Install nuget packages'){
 			steps{
