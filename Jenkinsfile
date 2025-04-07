@@ -11,7 +11,7 @@ pipeline {
         stage('Set up .NET Core') {
             steps {
                 bat '''
-                curl -l -o dotnet-sdk-6.0.136-win-x64.exe https://builds.dotnet.microsoft.com/dotnet/Sdk/6.0.136/dotnet-sdk-6.0.136-win-x64.exe
+                powershell -Command "Invoke-WebRequest -Uri 'https://builds.dotnet.microsoft.com/dotnet/Sdk/6.0.136/dotnet-sdk-6.0.136-win-x64.exe' -OutFile 'dotnet-sdk-6.0.136-win-x64.exe'"
                 dotnet-sdk-6.0.136-win-x64.exe /quiet /norestart
                 '''
             }
@@ -32,6 +32,7 @@ pipeline {
         stage('Run the tests') {
             steps {
                 bat 'dotnet test SeleniumIde.sln --logger "trx; LogFileName=TestResults.trx"'
+                bat 'dir /s /b **\\TestResults\\*.trx'  // Debugging: check if the trx file exists
             }
         }
     }
