@@ -31,6 +31,8 @@ pipeline {
         
         stage('Run the tests') {
             steps {
+				bat 'dotnet add package Microsoft.NET.Test.Sdk --version 17.9.0'
+			
                 bat 'dotnet test SeleniumIde.sln --logger "junit;LogFileName=test-results.xml"'
             }
         }
