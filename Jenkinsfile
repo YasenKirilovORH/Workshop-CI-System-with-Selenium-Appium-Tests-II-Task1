@@ -11,7 +11,7 @@ pipeline {
         stage('Set up .NET Core') {
             steps {
                 bat '''
-                curl -l -o dotnet-sdk-6.0.136-win-x86.exe https://builds.dotnet.microsoft.com/dotnet/Sdk/6.0.136/dotnet-sdk-6.0.136-win-x86.exe
+                curl -l -o dotnet-sdk-6.0.136-win-x64.exe https://builds.dotnet.microsoft.com/dotnet/Sdk/6.0.136/dotnet-sdk-6.0.136-win-x86.exe
                 dotnet-sdk-6.0.136-win-x86.exe /quiet /norestart
                 '''
             }
