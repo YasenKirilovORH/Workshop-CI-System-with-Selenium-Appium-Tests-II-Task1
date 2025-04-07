@@ -31,16 +31,15 @@ pipeline {
         
         stage('Run the tests') {
             steps {
-                bat 'dotnet test SeleniumIde.sln --logger "trx;LogFileName=TestResults.trx"'
-                bat 'dir /s /b *.trx'
+                bat 'dotnet test SeleniumIde.sln --logger "junit;LogFileName=test-results.xml"'
             }
         }
-    }
-    
-    post {
-        always {
-            archiveArtifacts artifacts: '**/TestResults/*.trx', allowEmptyArchive: true
-            junit '**/TestResults/*.trx'
+        
+        stage('Post Actions') {
+            steps {
+                archiveArtifacts artifacts: '**/test-results.xml', allowEmptyArchive: true
+                junit '**/test-results.xml'
+            }
         }
     }
 }
