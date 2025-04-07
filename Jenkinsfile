@@ -17,7 +17,7 @@ pipeline{
 			}
 		}
 		
-		stage('Install nuget packages){
+		stage('Install nuget packages'){
 			steps{
 				bat 'dotnet restore SeleniumIde.sln'
 			}
