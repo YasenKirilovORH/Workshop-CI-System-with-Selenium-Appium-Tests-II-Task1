@@ -31,13 +31,14 @@ pipeline {
         
         stage('Run the tests') {
 			steps {
-				// Add the NuGet test SDK package directly to the project
+				// Add the test SDK and JUnit logger
 				bat 'dotnet add SeleniumIDE/SeleniumIde.csproj package Microsoft.NET.Test.Sdk --version 17.9.0'
-        
-				// Run the tests and generate JUnit-compatible report
-				bat 'dotnet test SeleniumIde.sln --logger "junit;LogFileName=test-results.xml"'
-    }
-}
+				bat 'dotnet add SeleniumIDE/SeleniumIde.csproj package JunitXml.TestLogger'
+
+				// Run tests with the correct logger URI
+				bat 'dotnet test SeleniumIde.sln --logger "junit;LogFilePath=test-results.xml"'
+			}
+		}
         
         stage('Post Actions') {
             steps {
